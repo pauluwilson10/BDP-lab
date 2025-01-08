@@ -4,21 +4,23 @@ is_palindrome <- function(x) {
   reversed_string <- paste(reversed_char_list, collapse = "")
   return(x == reversed_string)
 }
-fibonacci <- function(n) {
-  fib <- numeric(n)
-  fib[1] <- 0
-  fib[2] <- 1
-  for(i in 3:n) {
-    fib[i] <- fib[i-1] + fib[i-2]
+is_fibonacci <- function(n) {
+  if (n == 0) return(TRUE)
+  a <- 0
+  b <- 1
+  while (b < n) {
+    temp <- b
+    b <- a + b
+    a <- temp
   }
-  return(fib)
+  return(b == n)
 }
 
-factorial <- function(n) {
-  if (n == 0 || n == 1) return(1)
-  return(n * factorial(n - 1))
+# Function to calculate factorial
+factorial_calc <- function(n) {
+  if (n == 0) return(1)
+  return(prod(1:n))
 }
-
 menu <- function() {
   repeat {
     cat("\nChoose an option from the menu:\n")
@@ -80,20 +82,19 @@ menu <- function() {
       print(min_row)
       
     } else if (choice == 4) {
-      # Factorial of Fibonacci numbers
-      n <- as.integer(readline("Enter the number of Fibonacci terms: "))
+      df <- data.frame(Number = c(5, 8, 12, 21, 34, 40, 55, 60))
       
-      # Calculate Fibonacci numbers
-      fib_nums <- fibonacci(n)
+      # Check if each number is a Fibonacci number and calculate factorial if true
+      df$Is_Fibonacci <- sapply(df$Number, is_fibonacci)
       
-      # Calculate factorials of Fibonacci numbers
-      factorials <- sapply(fib_nums, factorial)
+      # Calculate factorial for Fibonacci numbers
+      df$Factorial <- ifelse(df$Is_Fibonacci, sapply(df$Number, factorial_calc), NA)
       
-      # Create a data frame to store Fibonacci numbers and their factorials
-      fib_df <- data.frame(Fibonacci = fib_nums, Factorial = factorials)
+      # Display the data frame with results
+      print(df)
       
-      cat("Fibonacci numbers and their Factorials:\n")
-      print(fib_df)
+     # cat("Fibonacci numbers and their Factorials:\n")
+      #print(fib_df)
       
     } else if (choice == 5) {
       cat("Exiting program.\n")
