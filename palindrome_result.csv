@@ -1,0 +1,6 @@
+"col_1","col_2","col_3","Palindrome"
+"m","a","m",TRUE
+"h","h","h",TRUE
+"r","c","b",FALSE
+"h","w","w",FALSE
+"m","l","l",FALSE
